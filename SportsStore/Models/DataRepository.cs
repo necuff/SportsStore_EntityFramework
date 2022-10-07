@@ -19,6 +19,12 @@ namespace SportsStore.Models
             context.SaveChanges();
         }
 
+        public void DeleteProduct(Product product)
+        {
+            context.Products.Remove(product);
+            context.SaveChanges();
+        }
+
         public Product GetProduct(long key) => context.Products.Find(key);
 
         public void UpdateAll(Product[] products)
