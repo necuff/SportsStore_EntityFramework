@@ -21,6 +21,12 @@ namespace SportsStore.Models
 
         public Product GetProduct(long key) => context.Products.Find(key);
 
+        public void UpdateAll(Product[] products)
+        {
+            context.Products.UpdateRange(products);
+            context.SaveChanges();
+        }
+
         public void UpdateProduct(Product product)
         {
             //Обновляются только измененные поля
