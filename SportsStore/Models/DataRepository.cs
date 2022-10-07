@@ -18,5 +18,13 @@ namespace SportsStore.Models
             context.Products.Add(product);
             context.SaveChanges();
         }
+
+        public Product GetProduct(long key) => context.Products.Find(key);
+
+        public void UpdateProduct(Product product)
+        {
+            context.Products.Update(product);
+            context.SaveChanges();
+        }
     }    
 }
