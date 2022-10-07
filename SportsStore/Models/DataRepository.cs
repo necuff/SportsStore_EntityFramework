@@ -23,7 +23,15 @@ namespace SportsStore.Models
 
         public void UpdateProduct(Product product)
         {
-            context.Products.Update(product);
+            //Обновляются только измененные поля
+            Product p = GetProduct(product.Id);
+            p.Name = product.Name;
+            p.Category = product.Category;
+            p.PurchasePrice = product.PurchasePrice;
+            p.RetailPrice = product.RetailPrice;
+            
+            //Обновляется весь объект без отслеживания изменений
+            //context.Products.Update(product); 
             context.SaveChanges();
         }
     }    
