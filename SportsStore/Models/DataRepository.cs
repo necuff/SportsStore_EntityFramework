@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SportsStore.Models
 {
@@ -8,9 +9,9 @@ namespace SportsStore.Models
         private DataContext context;
         
         public DataRepository(DataContext context) => this.context = context;
-        
 
-        public IEnumerable<Product> Products => context.Products;
+
+        public IEnumerable<Product> Products => context.Products.ToArray();
 
         public void AddProduct(Product product)
         {

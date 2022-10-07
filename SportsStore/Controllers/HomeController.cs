@@ -11,9 +11,8 @@ namespace SportsStore.Controllers
 
         public HomeController(IRepository repo) => repository = repo;
 
-        public IActionResult Index() {
-            Console.Clear();
-            return View(repository.Products as IQueryable<Product>);
+        public IActionResult Index() {            
+            return View(repository.Products);
         } 
 
         public IActionResult AddProduct(Product product)
