@@ -7,5 +7,7 @@ namespace SportsStore.Models
         public DataContext(DbContextOptions<DataContext> opts) : base(opts) { }
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

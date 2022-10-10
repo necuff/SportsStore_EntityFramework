@@ -27,6 +27,7 @@ namespace SportsStore
             services.AddRazorPages();
             services.AddMvc();
             services.AddTransient<IRepository, DataRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<DataContext>(options => options.UseSqlServer(conString));
         }

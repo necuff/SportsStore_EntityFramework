@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SportsStore.Models
@@ -11,11 +12,28 @@ namespace SportsStore.Models
         public DataRepository(DataContext context) => this.context = context;
 
 
-        public IEnumerable<Product> Products => context.Products.ToArray();
+        public IEnumerable<Product> Products => context.Products.Include(p => p.Category).ToArray();
+
+        public Product GetProduct(long key) => context.Products.Include(p => p.Category).First(p => p.Id == key);
 
         public void AddProduct(Product product)
         {
             context.Products.Add(product);
+            context.SaveChanges();
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            //Обновляются только измененные поля
+            Product p = context.Products.Find(product.Id);
+            p.Name = product.Name;
+            //p.Category = product.Category;
+            p.PurchasePrice = product.PurchasePrice;
+            p.RetailPrice = product.RetailPrice;
+            p.CategoryId = product.CategoryId;
+
+            //Обновляется весь объект без отслеживания изменений
+            //context.Products.Update(product); 
             context.SaveChanges();
         }
 
@@ -25,7 +43,7 @@ namespace SportsStore.Models
             context.SaveChanges();
         }
 
-        public Product GetProduct(long key) => context.Products.Find(key);
+        
 
         public void UpdateAll(Product[] products)
         {
@@ -47,18 +65,6 @@ namespace SportsStore.Models
             context.SaveChanges();
         }
 
-        public void UpdateProduct(Product product)
-        {
-            //Обновляются только измененные поля
-            Product p = GetProduct(product.Id);
-            p.Name = product.Name;
-            p.Category = product.Category;
-            p.PurchasePrice = product.PurchasePrice;
-            p.RetailPrice = product.RetailPrice;
-            
-            //Обновляется весь объект без отслеживания изменений
-            //context.Products.Update(product); 
-            context.SaveChanges();
-        }
+        
     }    
 }
