@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Product>
+
+<div class="text-center m-4 bg-primary p-2">
+    <hЗ class="p-2 bg-primary text-white text-center">Seed data</hЗ>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <label>Number of objects to create</label>
+        <input class="form-control" name="count" value="50"/>
+    </div>
+    <div class="text-center">
+        <button type="submit" asp-action="CreateSeedData" class="btn btn-primary">Seed database</button>
+        <button asp-action="ClearData" class="btn btn-danger">Clear database</button>
+    </div>
+</form>
+
+<h5 class="text-center m-2">
+    There are @ViewBag.Count products in the database
+</h5>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1 font-weight-bold">Id</div>
+        <div class="col font-weight-bold">Name</div>
+        <div class="col font-weight-bold">Category</div>
+        <div class="col font-weight-bold">Purchase</div>
+        <div class="col font-weight-bold">Retail</div>
+    </div>
+    @foreach(Product p in Model){
+        <div class="row">
+            <div class="col-1">@p.Id</div>
+            <div class="col">@p.Name</div>
+            <div class="col">@p.Category.Name</div>
+            <div class="col text-right">@p.PurchasePrice</div>
+            <div class="col text-right">@p.RetailPrice</div>
+        </div>
+    }
+</div>
