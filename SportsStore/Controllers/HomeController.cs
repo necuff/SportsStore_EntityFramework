@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportsStore.Models;
+using SportsStore.Models.Pages;
 using System;
 using System.Linq;
 
@@ -16,8 +17,8 @@ namespace SportsStore.Controllers
             catRepository = catRepo;
         }
 
-        public IActionResult Index() {            
-            return View(repository.Products);
+        public IActionResult Index(QueryOptions options) {            
+            return View(repository.GetProducts(options));
         }
 
         public IActionResult UpdateProduct(long key)
