@@ -3,23 +3,26 @@
 @model PagedList<Product>
 
 <form id="pageform" method="get" class="form-inline d-inline-block"> 
+    <!--Previous page button-->
     <button name="options.currentPage" value="@(Model.CurrentPage - 1)" 
         class="btn btn-outline-primary" @(!Model.HasPreviousPage ? "disabled" : "") type="submit">
         Previous
     </button>
     
+    <!--First three pages-->
     @for(int i=1; i<=3 && i < Model.TotalPages; i++ ){
         <button name="options.currentPage" value="@i" type="submit" 
             class="btn btn-outline-primary @(Model.CurrentPage == i ? "active" : "")">
             @i
         </button>
     }
-
+    <!--Current page-->
     @if(Model.CurrentPage > 3 && Model.TotalPages - Model.CurrentPage >= 3) {
         @:...
         <button class="btn btn-outline-primary active">@Model.CurrentPage</button>
     }
-
+    
+    <!--Last three pages-->
     @if(Model.TotalPages > 3){
         @:...
         @for(int i = Math.Max(4, Model.TotalPages - 2 ); i <= Model.TotalPages; i++){
@@ -29,6 +32,7 @@
             </button>
         }
     }
+    <!--Next page button -->
     <button name="options.currentPage" value="@(Model.CurrentPage + 1)" type="submit" 
         class="btn btn-outline-primary" 
         @(!Model.HasNextPage ? "disabled" : "")>
