@@ -2,7 +2,7 @@
 
 @model PagedList<Product>
 
-<form id="pageform" method="get" class="form-inline d-inline-block"> 
+<form id="pageForm" method="get" class="form-inline d-inline-block"> 
     <!--Previous page button-->
     <button name="options.currentPage" value="@(Model.CurrentPage - 1)" 
         class="btn btn-outline-primary" @(!Model.HasPreviousPage ? "disabled" : "") type="submit">
