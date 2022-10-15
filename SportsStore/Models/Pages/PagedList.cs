@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -25,8 +26,13 @@ namespace SportsStore.Models.Pages
                 }
             }
 
+            Stopwatch sw = new Stopwatch();
+            sw.Start();            
+
             TotalPages = query.Count() / PageSize;
             AddRange(query.Skip((CurrentPage-1) * PageSize).Take(PageSize));
+
+            Debug.WriteLine($"++++++++Query time: {sw.ElapsedMilliseconds} ms");
         }
 
         public int CurrentPage { get; set; }
