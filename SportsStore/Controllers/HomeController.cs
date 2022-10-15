@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportsStore.Infrastructure;
 using SportsStore.Models;
 using SportsStore.Models.Pages;
 using System;
@@ -10,14 +11,17 @@ namespace SportsStore.Controllers
     {
         private IRepository repository;
         private ICategoryRepository catRepository;
+        private UptimeService uptimeService;
 
-        public HomeController(IRepository repo, ICategoryRepository catRepo)
+        public HomeController(IRepository repo, ICategoryRepository catRepo, UptimeService uptimeService)
         {
             repository = repo;
             catRepository = catRepo;
+            this.uptimeService = uptimeService;
         }
 
-        public IActionResult Index(QueryOptions options) {            
+        public IActionResult Index(QueryOptions options) {       
+            ViewBag.UptimeService = uptimeService;
             return View(repository.GetProducts(options));
         }
 

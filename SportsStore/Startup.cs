@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SportsStore.Infrastructure;
 using SportsStore.Models;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,15 @@ namespace SportsStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<UptimeService>();
+
             services.AddRazorPages();
             services.AddMvc();
             services.AddTransient<IRepository, DataRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrdersRepository, OrdersRepository>();
             string conString = Configuration["ConnectionStrings:DefaultConnection"];            
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(conString));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(conString));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
