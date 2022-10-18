@@ -26,13 +26,13 @@ namespace SportsStore.Models.Pages
                 }
             }
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();            
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();            
 
             TotalPages = query.Count() / PageSize;
             AddRange(query.Skip((CurrentPage-1) * PageSize).Take(PageSize));
 
-            Debug.WriteLine($"++++++++Query time: {sw.ElapsedMilliseconds} ms");
+            //Debug.WriteLine($"++++++++Query time: {sw.ElapsedMilliseconds} ms");
         }
 
         public int CurrentPage { get; set; }
