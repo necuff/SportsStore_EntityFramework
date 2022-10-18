@@ -77,5 +77,103 @@ END
             context.Database.CommitTransaction();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult CreateProductionData()
+        {
+            ClearData();
+            context.Categories.AddRange(new Category[]
+            {
+                new Category
+                {
+                    Name = "Watersports",
+                    Description = "Make a splash",
+                    Products = new Product[]
+                    {
+                        new Product
+                        {
+                            Name = "Kayak",
+                            Description = "A boat for one person",
+                            PurchasePrice = 200,
+                            RetailPrice = 275
+                        },
+                        new Product
+                        {
+                            Name = "Lifejacket",
+                            Description = "Protective and fashionable",
+                            PurchasePrice = 40,
+                            RetailPrice = 48.95m
+                        }
+                    }
+                },
+                new Category
+                {
+                    Name = "Soccer",
+                    Description = "The world's favorite game",
+                    Products = new Product[]
+                    {
+                        new Product
+                        {
+                            Name = "Soccer ball",
+                            Description = "FIFA-approved size and weight",
+                            PurchasePrice = 18,
+                            RetailPrice = 19.50m
+                        },
+                        new Product
+                        {
+                            Name = "Corner Flags",
+                            Description = "Give your playing field a professional touch",
+                            PurchasePrice = 32.50m,
+                            RetailPrice = 34.95m
+                        },
+                        new Product
+                        {
+                            Name = "Stadium",
+                            Description = "Flat-packet 35000-seat stadium",
+                            PurchasePrice = 75000,
+                            RetailPrice = 79500
+                        }
+                    }
+                },
+                new Category
+                {
+                    Name = "Chess",
+                    Description = "The thinky game",
+                    Products = new Product[]
+                    {
+                        new Product
+                        {
+                            Name = "Thinkin cap",
+                            Description = "Improve brain efficiency by 75%",
+                            PurchasePrice = 10,
+                            RetailPrice = 16
+                        },
+                        new Product
+                        {
+                            Name = "Unsteady chair",
+                            Description = "Secretely give your opponent a disadvantage",
+                            PurchasePrice = 28,
+                            RetailPrice = 29.95m
+                        },
+                        new Product
+                        {
+                            Name = "Human chess board",
+                            Description = "A fun game for the family",
+                            PurchasePrice = 68.50m,
+                            RetailPrice = 75
+                        },
+                        new Product
+                        {
+                            Name = "Bling-Bling king",
+                            Description = "Gold plated, giamond-studded King",
+                            PurchasePrice = 800,
+                            RetailPrice = 1200
+                        }
+                    }
+                }
+            });
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
