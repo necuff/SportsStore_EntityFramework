@@ -45,6 +45,7 @@ namespace SportsStore.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult CreateOrder(Order order)
         {
             order.Lines = GetCart().Selections.Select(s => new OrderLine
