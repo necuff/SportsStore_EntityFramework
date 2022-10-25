@@ -16,5 +16,11 @@ namespace SportsStore.Controllers
             return repository.GetProduct(id) ?? NotFound();
         }
 
+        [HttpGet]
+        public object GetProducts(int skip, int take)
+        {
+            return repository.GetProducts(skip, take);
+        }
+
     }
 }

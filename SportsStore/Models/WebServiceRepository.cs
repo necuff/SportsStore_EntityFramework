@@ -34,5 +34,28 @@ namespace SportsStore.Models
                     }
                 }).FirstOrDefault(p => p.Id == id);
         }
+
+        public object GetProducts(int skip, int take)
+        {
+            return context.Products.Include(p => p.Category)
+                .OrderBy(p => p.Id)
+                .Skip(skip)
+                .Take(take)
+                .Select(p => new
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    PurchasePrice = p.PurchasePrice,
+                    RetailPrice = p.RetailPrice,
+                    CategoryId = p.CategoryId,
+                    Category = new
+                    {
+                        Id = p.Category.Id,
+                        Name = p.Category.Name,
+                        Description = p.Category.Description
+                    }
+                });
+        }
     }
 }
