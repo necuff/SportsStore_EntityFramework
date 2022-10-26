@@ -7,16 +7,10 @@ namespace SportsStore.Models
     {
         private DataContext context;
 
-        public WebServiceRepository(DataContext ctx) => this.context = ctx;
+        public WebServiceRepository(DataContext ctx) => this.context = ctx;        
 
         public object GetProduct(long id)
-        {
-            /*return context.Products.Select(p => new { Id = p.Id, Name = p.Name, 
-                Description = p.Description, PurchasePrice = p.PurchasePrice, 
-                RetailPrice = p.RetailPrice})
-                .FirstOrDefault(p => p.Id == id);
-            */
-
+        {            
             return context.Products.Include(p => p.Category)
                 .Select(p => new
                 {
@@ -56,6 +50,25 @@ namespace SportsStore.Models
                         Description = p.Category.Description
                     }
                 });
+        }
+
+        public long StoreProduct(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+            return product.Id;
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            context.Products.Update(product);
+            context.SaveChanges();
+        }
+
+        public void DeleteProduct(long id)
+        {
+            context.Products.Remove(new Product { Id = id });
+            context.SaveChanges();
         }
     }
 }
